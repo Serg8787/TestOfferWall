@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">TestOfferwall</string>
+    <string name="base_url">http://demo3005513.mockable.io/api/v1/</string>
 </resources>

@@ -8,4 +8,7 @@ import retrofit2.http.Query
 interface APIService {
     @GET("entities/getAllIds")
     fun getDataList(): Call<DataList>
+
+//    @GET("entities/getAllIds")
+//    fun getDataList(): Call<Data>
 }
