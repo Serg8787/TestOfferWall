@@ -7,10 +7,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
+import com.google.gson.JsonObject
 import com.tsybulnik.testofferwall.R
+import com.tsybulnik.testofferwall.model.Obj
 import com.tsybulnik.testofferwall.network.APIService
 import com.tsybulnik.testofferwall.network.RetrofitClient
 import kotlinx.android.synthetic.main.fragment_view.*
+import org.json.JSONObject
+import org.json.JSONTokener
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -25,13 +30,10 @@ private const val ARG_PARAM1 = "param1"
 class ViewFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: Int? = null
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
             param1 = it.getInt(ARG_PARAM1)
-
         }
     }
 
@@ -45,28 +47,33 @@ class ViewFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        tvView.text = param1.toString()
+
 
         val retrofit = RetrofitClient.getClient("http://demo3005513.mockable.io/api/v1/").create(
             APIService::class.java
         )
+        val objOfView = retrofit.getView(param1!!).execute().body()
+         if (objOfView.toString().contains("text")){
+             tvView.text = "33"
+             Log.d("MyLog","33")
+             val s: List<String> = objOfView.toString().split("\"")
+             Log.d("MyLog",s.toString())
 
-        val typeOfView = retrofit.getView(2).execute().body()?.type
 
-        Log.d("MyLog",typeOfView.toString())
+         }
+
+
+
+
+
+
+
+
+
 
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment ViewFragment.
-         */
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: Int) =
             ViewFragment().apply {
