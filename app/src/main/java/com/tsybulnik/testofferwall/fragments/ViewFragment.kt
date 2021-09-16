@@ -62,7 +62,7 @@ class ViewFragment : Fragment() {
         if (objOfView.toString().contains("image")){
             tvView.text = "33"
             val image: String = objOfView.toString().substring((objOfView.toString().lastIndexOf("=") + 1),objOfView.toString().length-1)
-            Log.d("MyLog",image)
+            Log.d("MyLog","im"+image)
         }
 
 
