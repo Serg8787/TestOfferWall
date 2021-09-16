@@ -53,12 +53,17 @@ class ViewFragment : Fragment() {
              tvView.text = "33"
              val message: String = objOfView.toString().substring((objOfView.toString().lastIndexOf("=") + 1),objOfView.toString().length-1)
              Log.d("MyLog",message)
-
-
-
-
-
          }
+        if (objOfView.toString().contains("webview")){
+            tvView.text = "33"
+            val webview: String = objOfView.toString().substring((objOfView.toString().lastIndexOf("=") + 1),objOfView.toString().length-1)
+            Log.d("MyLog",webview)
+        }
+        if (objOfView.toString().contains("image")){
+            tvView.text = "33"
+            val image: String = objOfView.toString().substring((objOfView.toString().lastIndexOf("=") + 1),objOfView.toString().length-1)
+            Log.d("MyLog",image)
+        }
 
 
 
