@@ -11,6 +11,6 @@ interface APIService {
     @GET("entities/getAllIds")
     fun getDataList(): Call<DataList>
 
-    @GET("object/{type}")
-    fun getView(@Path("type") type:Any): Call<Obj>
+    @GET("object/{id}")
+    fun getView(@Path("id") id:Int): Call<Obj>
 }

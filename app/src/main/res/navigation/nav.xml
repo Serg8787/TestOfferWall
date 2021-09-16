@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav"
+    app:startDestination="@id/onWardFragment">
+
+    <fragment
+        android:id="@+id/onWardFragment"
+        android:name="com.tsybulnik.testofferwall.fragments.OnWardFragment"
+        android:label="fragment_on_ward"
+        tools:layout="@layout/fragment_on_ward" >
+        <action
+            android:id="@+id/action_onWardFragment_to_viewFragment"
+            app:destination="@id/viewFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/viewFragment"
+        android:name="com.tsybulnik.testofferwall.fragments.ViewFragment"
+        android:label="fragment_view"
+        tools:layout="@layout/fragment_view" />
+</navigation>
