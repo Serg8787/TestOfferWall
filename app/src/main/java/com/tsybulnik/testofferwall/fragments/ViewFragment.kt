@@ -6,16 +6,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import android.widget.Toast
-import com.google.gson.JsonObject
 import com.tsybulnik.testofferwall.R
-import com.tsybulnik.testofferwall.model.Obj
 import com.tsybulnik.testofferwall.network.APIService
 import com.tsybulnik.testofferwall.network.RetrofitClient
 import kotlinx.android.synthetic.main.fragment_view.*
-import org.json.JSONObject
-import org.json.JSONTokener
+
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -53,11 +48,14 @@ class ViewFragment : Fragment() {
             APIService::class.java
         )
         val objOfView = retrofit.getView(param1!!).execute().body()
+        Log.d("MyLog",objOfView.toString())
          if (objOfView.toString().contains("text")){
              tvView.text = "33"
-             Log.d("MyLog","33")
-             val s: List<String> = objOfView.toString().split("\"")
-             Log.d("MyLog",s.toString())
+             val message: String = objOfView.toString().substring((objOfView.toString().lastIndexOf("=") + 1),objOfView.toString().length-1)
+             Log.d("MyLog",message)
+
+
+
 
 
          }
