@@ -51,9 +51,8 @@ class MainFragment : Fragment() {
         viewModel.str.value = objOfView.toString()
 
         var i = 0
-
         btOnWard.setOnClickListener {
-            i += 1
+            i+= 1
             if (i < idList.size) {
                 objOfView = retrofit.getView(idList[i]).execute().body()
                 viewModel.str.value = objOfView.toString()
