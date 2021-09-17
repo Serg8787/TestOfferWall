@@ -31,7 +31,7 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // так делать нельзя. Чтобы запрос был в главном потоке. Передалать
+        // так делать нельзя. Чтобы запрос был в главном потоке. Передалать. Работает, потому что мало данных
         val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
         StrictMode.setThreadPolicy(policy)
 
@@ -65,8 +65,7 @@ class MainFragment : Fragment() {
     }
 
     companion object {
-
         @JvmStatic
-        fun newInstance() =    MainFragment()
+        fun newInstance() = MainFragment()
     }
 }
