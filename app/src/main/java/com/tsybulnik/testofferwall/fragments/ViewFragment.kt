@@ -29,7 +29,7 @@ class ViewFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        var messageOrUrl:String = "fdsf"
+        var messageOrUrl:String
         viewModel.str.observe(activity as LifecycleOwner, {
             val queryString = it
 //             TextView
