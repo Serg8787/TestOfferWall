@@ -2,17 +2,16 @@ package com.tsybulnik.testofferwall.fragments
 
 import android.os.Bundle
 import android.os.StrictMode
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.ViewModelProvider
 import com.tsybulnik.testofferwall.DataViewModel
 import com.tsybulnik.testofferwall.R
 import com.tsybulnik.testofferwall.network.APIService
 import com.tsybulnik.testofferwall.network.RetrofitClient
+import kotlinx.android.synthetic.main.fragment_main.*
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -29,6 +28,7 @@ class MainFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
     private val viewModel: DataViewModel by activityViewModels()
+    private var isFirst: Boolean = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,16 +42,15 @@ class MainFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_main, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // так делать нельзя. Чтобы запрос был в главном потоке. Передалать
         val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
         StrictMode.setThreadPolicy(policy)
-
 
 
         val retrofit = RetrofitClient.getClient("http://demo3005513.mockable.io/api/v1/").create(
@@ -65,21 +64,24 @@ class MainFragment : Fragment() {
             idList.add(list[number].id)
         }
 
-        val objOfView = retrofit.getView(idList[2]).execute().body()
-
+        var objOfView = retrofit.getView(idList[0]).execute().body()
         viewModel.str.value = objOfView.toString()
+        isFirst = false
+        var i = 0
+
+        btOnWard.setOnClickListener {
+            i += 1
+            if (i<idList.size){
+                objOfView = retrofit.getView(idList[i]).execute().body()
+                viewModel.str.value = objOfView.toString()
+            } else {
+                i = 0
+            }
+        }
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment MainFragment.
-         */
-        // TODO: Rename and change types and number of parameters
+
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
             MainFragment().apply {

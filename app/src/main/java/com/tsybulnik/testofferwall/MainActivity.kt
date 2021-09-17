@@ -16,20 +16,13 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : AppCompatActivity() {
-
-    private var isFirst: Boolean = true
-    private val dataViewModel:DataViewModel by viewModels()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         supportActionBar?.hide()
 
-
         openFrag(MainFragment.newInstance("",""),R.id.frameLayout1)
         openFrag(ViewFragment.newInstance(1),R.id.frameLayout2)
-
-
     }
 
     private fun openFrag(f:Fragment,id:Int){

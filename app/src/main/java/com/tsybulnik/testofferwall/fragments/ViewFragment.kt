@@ -54,7 +54,7 @@ class ViewFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        var viewElement = ""
+//        var viewElement = ""
         var str = ""
         var str1 = ""
 
@@ -64,7 +64,6 @@ class ViewFragment : Fragment() {
             str = it
 //             текствью
             if (str.contains("text")) {
-                viewElement = "text"
                 str1 = str.substring(
                     (str.lastIndexOf("=") + 1),
                     str.length - 1
@@ -79,10 +78,9 @@ class ViewFragment : Fragment() {
             }
 //            // вебвью
             if (str.contains("webview")) {
-                viewElement = "webView"
                 str1 = str.substring(
-                    (str.toString().lastIndexOf("=") + 1),
-                    str.toString().length - 1
+                    (str.lastIndexOf("=") + 1),
+                    str.length - 1
                 )
                 val webView = WebView(requireActivity().applicationContext)
                 webView.loadUrl(str1)
@@ -93,13 +91,11 @@ class ViewFragment : Fragment() {
             }
             // Картинка
             if (str.contains("image")) {
-                viewElement = "image"
                 str1 = str.substring(
                     (str.lastIndexOf("=") + 1),
                     str.length - 1
                 )
                 val imageView = ImageView(context)
-                imageView.setImageResource(com.tsybulnik.testofferwall.R.drawable.ic_launcher_background)
                 Glide
                     .with(this)
                     .load(str1)
@@ -108,6 +104,12 @@ class ViewFragment : Fragment() {
                     LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT)
                 imageView.setLayoutParams(imageViewLayoutParams)
                 mainLayout.addView(imageView)
+            }
+            if (str.contains("game")) {
+                str1 = str.substring(
+                    (str.lastIndexOf("=") + 1),
+                    str.length - 1
+                )
             }
         })
 
