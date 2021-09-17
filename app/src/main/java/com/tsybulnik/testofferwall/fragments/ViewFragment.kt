@@ -29,33 +29,33 @@ class ViewFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        var str1 = ""
+        var messageOrUrl:String
         viewModel.str.observe(activity as LifecycleOwner, {
             val queryString = it
 //             TextView
             if (queryString.contains("text")) {
-                str1 = getStr(queryString)
+                messageOrUrl = getStr(queryString)
                 webView.visibility = View.GONE
                 imageView.visibility = View.GONE
                 textview.visibility = View.VISIBLE
-                textview.text = str1
+                textview.text = messageOrUrl
             }
 //            WebView
             if (queryString.contains("webview")) {
-                str1 = getStr(queryString)
+                messageOrUrl = getStr(queryString)
                 textview.visibility = View.GONE
                 webView.visibility = View.VISIBLE
-                webView.loadUrl(str1)
+                webView.loadUrl(messageOrUrl)
             }
             // ImageView
             if (queryString.contains("image")) {
-                str1 = getStr(queryString)
+                messageOrUrl = getStr(queryString)
                 webView.visibility = View.GONE
                 imageView.visibility = View.VISIBLE
                 Glide
                     .with(this)
-                    .load(str1)
-                    .into(imageView);
+                    .load(messageOrUrl)
+                    .into(imageView)
             }
             // Nothing
             if (queryString.contains("game")) {
@@ -72,10 +72,10 @@ class ViewFragment : Fragment() {
 
     }
     private fun getStr(queryString:String):String{
-        val ss =   queryString.substring(
+        val  messageOrUrl =   queryString.substring(
             (queryString.lastIndexOf("=") + 1),
             queryString.length - 1
         )
-        return ss
+        return  messageOrUrl
     }
 }
