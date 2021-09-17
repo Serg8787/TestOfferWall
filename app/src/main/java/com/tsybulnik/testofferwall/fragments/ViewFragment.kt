@@ -16,6 +16,7 @@ import android.widget.ImageView
 import com.tsybulnik.testofferwall.MainActivity
 
 import android.widget.LinearLayout
+import android.widget.TextView
 import com.bumptech.glide.Glide
 
 
@@ -62,7 +63,12 @@ class ViewFragment : Fragment() {
          if (objOfView.toString().contains("text")){
              tvView.text = "33"
              val message: String = objOfView.toString().substring((objOfView.toString().lastIndexOf("=") + 1),objOfView.toString().length-1)
-             Log.d("MyLog",message)
+             val textView = TextView(context)
+             textView.text = message
+             val textViewLayoutParams =
+                 ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+             textView.setLayoutParams(textViewLayoutParams)
+             mainLayout.addView(textView)
          }
         if (objOfView.toString().contains("webview")){
             tvView.text = "33"
