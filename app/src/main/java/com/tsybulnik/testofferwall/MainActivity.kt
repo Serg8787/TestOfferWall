@@ -3,7 +3,12 @@ package com.tsybulnik.testofferwall
 import android.os.Bundle
 import android.os.StrictMode
 import android.os.StrictMode.ThreadPolicy
+import android.util.Log
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import com.tsybulnik.testofferwall.fragments.MainFragment
 import com.tsybulnik.testofferwall.fragments.ViewFragment
 import com.tsybulnik.testofferwall.network.APIService
 import com.tsybulnik.testofferwall.network.RetrofitClient
@@ -12,32 +17,23 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
+    private var isFirst: Boolean = true
+    private val dataViewModel:DataViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         supportActionBar?.hide()
 
-        val policy = ThreadPolicy.Builder().permitAll().build()
-        StrictMode.setThreadPolicy(policy)
 
-        val retrofit = RetrofitClient.getClient("http://demo3005513.mockable.io/api/v1/").create(
-            APIService::class.java
-        )
+        openFrag(MainFragment.newInstance("",""),R.id.frameLayout1)
+        openFrag(ViewFragment.newInstance(1),R.id.frameLayout2)
 
-        val list = retrofit.getDataList().execute().body()?.data
-        val idList: ArrayList<Int> = arrayListOf()
-        for (number in list!!.indices) {
 
-            idList.add(list[number].id)
-        }
+    }
 
-        btOn.setOnClickListener {
-            val d = idList[1]
-                supportFragmentManager.beginTransaction()
-                    .replace(R.id.frameLayout, ViewFragment.newInstance(d)).commit()
-
-        }
-
+    private fun openFrag(f:Fragment,id:Int){
+        supportFragmentManager.beginTransaction().replace(id,f).commit()
     }
 
 }

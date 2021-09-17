@@ -3,20 +3,19 @@ package com.tsybulnik.testofferwall.fragments
 import android.os.Bundle
 import android.util.Log
 import android.view.Gravity
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewGroup.LayoutParams
 import android.webkit.WebView
-import com.tsybulnik.testofferwall.network.APIService
-import com.tsybulnik.testofferwall.network.RetrofitClient
-import kotlinx.android.synthetic.main.fragment_view.*
-
 import android.widget.ImageView
-
 import android.widget.TextView
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.LifecycleOwner
 import com.bumptech.glide.Glide
+import com.tsybulnik.testofferwall.DataViewModel
+import kotlinx.android.synthetic.main.fragment_view.*
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -30,6 +29,8 @@ private const val ARG_PARAM1 = "param1"
  * create an instance of this fragment.
  */
 class ViewFragment : Fragment() {
+    private val viewModel: DataViewModel by activityViewModels()
+
     // TODO: Rename and change types of parameters
     private var param1: Int? = null
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,55 +45,74 @@ class ViewFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(com.tsybulnik.testofferwall.R.layout.fragment_view, container, false)
+        return inflater.inflate(
+            com.tsybulnik.testofferwall.R.layout.fragment_view,
+            container,
+            false
+        )
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        val retrofit = RetrofitClient.getClient("http://demo3005513.mockable.io/api/v1/").create(
-            APIService::class.java
-        )
-        val objOfView = retrofit.getView(param1!!).execute().body()
+        var viewElement = ""
+        var str = ""
+        var str1 = ""
 
 
-        Log.d("MyLog",objOfView.toString())
-         if (objOfView.toString().contains("text")){
-             val message: String = objOfView.toString().substring((objOfView.toString().lastIndexOf("=") + 1),objOfView.toString().length-1)
-             val textView = TextView(context)
-             textView.text = message
-             val textViewLayoutParams =
-                 ViewGroup.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
-             textView.setLayoutParams(textViewLayoutParams)
-             textView.gravity = Gravity.CENTER
-             mainLayout.addView(textView)
-         }
-        if (objOfView.toString().contains("webview")){
-//            tvView.text = "33"
-            val webviewString: String = objOfView.toString().substring((objOfView.toString().lastIndexOf("=") + 1),objOfView.toString().length-1)
-            Log.d("MyLog",webviewString)
 
-            val webView = WebView(requireActivity().applicationContext)
-            webView.loadUrl(webviewString)
-            val textViewLayoutParams =
-                ViewGroup.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
-            webView.setLayoutParams(textViewLayoutParams)
-            mainLayout.addView(webView)
-        }
-        if (objOfView.toString().contains("image")){
-            val image: String = objOfView.toString().substring((objOfView.toString().lastIndexOf("=") + 1),objOfView.toString().length-1)
-            Log.d("MyLog","im"+image)
-            val imageView = ImageView(context)
-            imageView.setImageResource(com.tsybulnik.testofferwall.R.drawable.ic_launcher_background)
-            Glide
-                .with(this)
-                .load(image)
-                .into(imageView);
-            val imageViewLayoutParams =
-                LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT)
-            imageView.setLayoutParams(imageViewLayoutParams)
-            mainLayout.addView(imageView)
-        }
+        viewModel.str.observe(activity as LifecycleOwner, {
+            str = it
+//             текствью
+            if (str.contains("text")) {
+                viewElement = "text"
+                str1 = str.substring(
+                    (str.lastIndexOf("=") + 1),
+                    str.length - 1
+                )
+                val textView = TextView(context)
+                textView.text = str1
+                val textViewLayoutParams =
+                    ViewGroup.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
+                textView.setLayoutParams(textViewLayoutParams)
+                textView.gravity = Gravity.CENTER
+                mainLayout.addView(textView)
+            }
+//            // вебвью
+            if (str.contains("webview")) {
+                viewElement = "webView"
+                str1 = str.substring(
+                    (str.toString().lastIndexOf("=") + 1),
+                    str.toString().length - 1
+                )
+                val webView = WebView(requireActivity().applicationContext)
+                webView.loadUrl(str1)
+                val textViewLayoutParams =
+                    ViewGroup.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
+                webView.setLayoutParams(textViewLayoutParams)
+                mainLayout.addView(webView)
+            }
+            // Картинка
+            if (str.contains("image")) {
+                viewElement = "image"
+                str1 = str.substring(
+                    (str.lastIndexOf("=") + 1),
+                    str.length - 1
+                )
+                val imageView = ImageView(context)
+                imageView.setImageResource(com.tsybulnik.testofferwall.R.drawable.ic_launcher_background)
+                Glide
+                    .with(this)
+                    .load(str1)
+                    .into(imageView);
+                val imageViewLayoutParams =
+                    LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT)
+                imageView.setLayoutParams(imageViewLayoutParams)
+                mainLayout.addView(imageView)
+            }
+        })
+
+
+
     }
 
     companion object {
