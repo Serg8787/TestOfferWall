@@ -8,22 +8,6 @@
     tools:context=".fragments.ViewFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:id="@+id/tvView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="30sp"
-        android:text="@string/hello_blank_fragment"
-        tools:ignore="MissingConstraints"
-        app:layout_constraintBottom_toBottomOf="parent"/>
 
-    <View
-        android:id="@+id/allView"
-        android:layout_width="0dp"
-        android:layout_height="100dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvView"
-        tools:ignore="MissingConstraints" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

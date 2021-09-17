@@ -2,10 +2,12 @@ package com.tsybulnik.testofferwall.fragments
 
 import android.os.Bundle
 import android.util.Log
+import android.view.Gravity
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewGroup.LayoutParams
 import com.tsybulnik.testofferwall.R
 import com.tsybulnik.testofferwall.network.APIService
 import com.tsybulnik.testofferwall.network.RetrofitClient
@@ -61,17 +63,17 @@ class ViewFragment : Fragment() {
 
         Log.d("MyLog",objOfView.toString())
          if (objOfView.toString().contains("text")){
-             tvView.text = "33"
              val message: String = objOfView.toString().substring((objOfView.toString().lastIndexOf("=") + 1),objOfView.toString().length-1)
              val textView = TextView(context)
              textView.text = message
              val textViewLayoutParams =
-                 ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+                 ViewGroup.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
              textView.setLayoutParams(textViewLayoutParams)
+             textView.gravity = Gravity.CENTER
              mainLayout.addView(textView)
          }
         if (objOfView.toString().contains("webview")){
-            tvView.text = "33"
+//            tvView.text = "33"
             val webview: String = objOfView.toString().substring((objOfView.toString().lastIndexOf("=") + 1),objOfView.toString().length-1)
             Log.d("MyLog",webview)
         }
@@ -85,7 +87,7 @@ class ViewFragment : Fragment() {
                 .load(image)
                 .into(imageView);
             val imageViewLayoutParams =
-                ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+                LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT)
             imageView.setLayoutParams(imageViewLayoutParams)
             mainLayout.addView(imageView)
         }
