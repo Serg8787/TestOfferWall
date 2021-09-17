@@ -68,13 +68,10 @@ class ViewFragment : Fragment() {
                     (str.lastIndexOf("=") + 1),
                     str.length - 1
                 )
-                val textView = TextView(context)
-                textView.text = str1
-                val textViewLayoutParams =
-                    ViewGroup.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
-                textView.setLayoutParams(textViewLayoutParams)
-                textView.gravity = Gravity.CENTER
-                mainLayout.addView(textView)
+                webView.visibility = View.GONE
+                imageView.visibility = View.GONE
+                textview.visibility = View.VISIBLE
+                textview.text = str1
             }
 //            // вебвью
             if (str.contains("webview")) {
@@ -82,12 +79,9 @@ class ViewFragment : Fragment() {
                     (str.lastIndexOf("=") + 1),
                     str.length - 1
                 )
-                val webView = WebView(requireActivity().applicationContext)
+                textview.visibility = View.GONE
+                webView.visibility = View.VISIBLE
                 webView.loadUrl(str1)
-                val textViewLayoutParams =
-                    ViewGroup.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
-                webView.setLayoutParams(textViewLayoutParams)
-                mainLayout.addView(webView)
             }
             // Картинка
             if (str.contains("image")) {
@@ -95,21 +89,21 @@ class ViewFragment : Fragment() {
                     (str.lastIndexOf("=") + 1),
                     str.length - 1
                 )
-                val imageView = ImageView(context)
+                webView.visibility = View.GONE
+                imageView.visibility = View.VISIBLE
                 Glide
                     .with(this)
                     .load(str1)
                     .into(imageView);
-                val imageViewLayoutParams =
-                    LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT)
-                imageView.setLayoutParams(imageViewLayoutParams)
-                mainLayout.addView(imageView)
             }
             if (str.contains("game")) {
                 str1 = str.substring(
                     (str.lastIndexOf("=") + 1),
                     str.length - 1
                 )
+                webView.visibility = View.GONE
+                textview.visibility = View.GONE
+                imageView.visibility = View.GONE
             }
         })
 

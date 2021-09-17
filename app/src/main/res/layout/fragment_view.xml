@@ -6,7 +6,25 @@
     android:id="@+id/mainLayout"
     tools:context=".fragments.ViewFragment">
 
-    <!-- TODO: Update blank fragment layout -->
+  <WebView
+      android:id="@+id/webView"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/textview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"/>
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"/>
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
