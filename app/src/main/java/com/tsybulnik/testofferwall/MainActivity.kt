@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         btOn.setOnClickListener {
-            val d = idList[0]
+            val d = idList[1]
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.frameLayout, ViewFragment.newInstance(d)).commit()
 

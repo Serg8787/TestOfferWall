@@ -8,16 +8,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewGroup.LayoutParams
-import com.tsybulnik.testofferwall.R
+import android.webkit.WebView
 import com.tsybulnik.testofferwall.network.APIService
 import com.tsybulnik.testofferwall.network.RetrofitClient
 import kotlinx.android.synthetic.main.fragment_view.*
 
 import android.widget.ImageView
 
-import com.tsybulnik.testofferwall.MainActivity
-
-import android.widget.LinearLayout
 import android.widget.TextView
 import com.bumptech.glide.Glide
 
@@ -53,11 +50,9 @@ class ViewFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
         val retrofit = RetrofitClient.getClient("http://demo3005513.mockable.io/api/v1/").create(
             APIService::class.java
         )
-
         val objOfView = retrofit.getView(param1!!).execute().body()
 
 
@@ -74,8 +69,15 @@ class ViewFragment : Fragment() {
          }
         if (objOfView.toString().contains("webview")){
 //            tvView.text = "33"
-            val webview: String = objOfView.toString().substring((objOfView.toString().lastIndexOf("=") + 1),objOfView.toString().length-1)
-            Log.d("MyLog",webview)
+            val webviewString: String = objOfView.toString().substring((objOfView.toString().lastIndexOf("=") + 1),objOfView.toString().length-1)
+            Log.d("MyLog",webviewString)
+
+            val webView = WebView(requireActivity().applicationContext)
+            webView.loadUrl(webviewString)
+            val textViewLayoutParams =
+                ViewGroup.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
+            webView.setLayoutParams(textViewLayoutParams)
+            mainLayout.addView(webView)
         }
         if (objOfView.toString().contains("image")){
             val image: String = objOfView.toString().substring((objOfView.toString().lastIndexOf("=") + 1),objOfView.toString().length-1)
@@ -91,8 +93,6 @@ class ViewFragment : Fragment() {
             imageView.setLayoutParams(imageViewLayoutParams)
             mainLayout.addView(imageView)
         }
-
-
     }
 
     companion object {
