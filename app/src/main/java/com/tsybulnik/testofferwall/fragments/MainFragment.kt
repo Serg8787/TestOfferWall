@@ -66,16 +66,19 @@ class MainFragment : Fragment() {
 
         var objOfView = retrofit.getView(idList[0]).execute().body()
         viewModel.str.value = objOfView.toString()
-        isFirst = false
+
         var i = 0
 
         btOnWard.setOnClickListener {
+
             i += 1
-            if (i<idList.size){
+            if (i < idList.size) {
                 objOfView = retrofit.getView(idList[i]).execute().body()
                 viewModel.str.value = objOfView.toString()
             } else {
                 i = 0
+                objOfView = retrofit.getView(idList[i]).execute().body()
+                viewModel.str.value = objOfView.toString()
             }
         }
     }
