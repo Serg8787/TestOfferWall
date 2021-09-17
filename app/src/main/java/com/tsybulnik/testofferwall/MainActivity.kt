@@ -16,13 +16,14 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         supportActionBar?.hide()
 
-        openFrag(MainFragment.newInstance("",""),R.id.frameLayout1)
-        openFrag(ViewFragment.newInstance(1),R.id.frameLayout2)
+        openFrag(MainFragment.newInstance(),R.id.frameLayout1)
+        openFrag(ViewFragment.newInstance(),R.id.frameLayout2)
     }
 
     private fun openFrag(f:Fragment,id:Int){
